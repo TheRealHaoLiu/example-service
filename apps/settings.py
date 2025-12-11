@@ -1,0 +1,58 @@
+"""Top level settings file for all apps.
+The settings here overrides any setting previously loaded
+from the example_service.settings
+In order to merge wit previously defined setting
+use Dynaconf merging markers such as:
+@merge, @merge_unique, @insert on string values and
+`dynaconf_merge` or `dynaconf_merge_unique` on data structures.
+The settings defined here can be overridden from
+each app own settings.py, environment local override files and
+environment variables.
+"""
+
+extra_applications = []
+"""Extra applications added after PSF templating."""
+
+dab_applications = [
+    "ansible_base.rest_filters",
+    "ansible_base.jwt_consumer",
+    "ansible_base.resource_registry",
+    "ansible_base.rbac",
+    "ansible_base.feature_flags",
+    "ansible_base.api_documentation",
+]
+"""Default DAB applications layd out from PSF, add/remove according to the project needs,
+adjust `pyproject` dab extra dependencies acording to apps added/removed here.
+"""
+
+project_applications = [
+    "apps.core",
+    "apps.api",
+]
+"""List of applications from the apps/ folder."""
+
+
+INSTALLED_APPS = [
+    "dynaconf_merge_unique",  # DO NOT REMOVE THIS
+    *dab_applications,
+    *project_applications,
+    *extra_applications,
+]
+"""Final state of the INSTALLED_APPS that will merge with the rest of the settings."""
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+}
+"""REST framework settings."""
+
+SPECTACULAR_SETTINGS__TITLE = "example_service API"
+"""Title of Swagger the API documentation."""
+SPECTACULAR_SETTINGS__DESCRIPTION = "API documentation for the example_service"
+"""Description of Swagger the API documentation."""
+SPECTACULAR_SETTINGS__VERSION = "v1"
+"""Version of Swagger the API documentation."""
+SPECTACULAR_SETTINGS__COMPONENT_SPLIT_REQUEST = True
+"""Split components into request and response for generating clients."""

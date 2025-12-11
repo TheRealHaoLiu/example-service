@@ -1,0 +1,10 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: 393637b
+_src_path: /Volumes/case-sensitive-volume/projects/src/github.com/TheRealHaoLiu/platform-service-framework
+app_name: api
+apps:
+- core
+- api
+project_name: example_service
+src_branch: main
+template: templates/app
