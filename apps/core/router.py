@@ -1,28 +1,29 @@
-"""Router configuration for API v1 endpoints."""
+"""Router configuration for core models."""
 
 from ansible_base.lib.routers import AssociationResourceRouter
-from . import viewsets
+
+from apps.core.viewsets import OrganizationViewSet, TeamViewSet, UserViewSet
 
 router = AssociationResourceRouter()
 
 router.register(
     r'organizations',
-    viewsets.OrganizationViewSet,
+    OrganizationViewSet,
     related_views={
-        'teams': (viewsets.TeamViewSet, 'teams'),
+        'teams': (TeamViewSet, 'teams'),
     },
 )
 
 router.register(
     r'teams',
-    viewsets.TeamViewSet,
+    TeamViewSet,
     related_views={
-        'organization': (viewsets.OrganizationViewSet, 'organization'),
+        'organization': (OrganizationViewSet, 'organization'),
     },
 )
 
 router.register(
     r'users',
-    viewsets.UserViewSet,
+    UserViewSet,
     basename='user',
 )
