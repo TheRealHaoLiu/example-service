@@ -1,15 +1,15 @@
 """ViewSets and APIViews for the API v1 endpoints."""
 
+from ansible_base.lib.utils.views.ansible_base import AnsibleBaseView
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from apps.api.permissions import IsAuthenticatedUser, IsSuperAdmin
 
 from .serializers import AdminDataSerializer, ExampleResponseSerializer
 
 
-class AuthenticatedExampleView(APIView):
+class AuthenticatedExampleView(AnsibleBaseView):
     """
     Example API endpoint accessible by any authenticated user.
 
@@ -29,7 +29,7 @@ class AuthenticatedExampleView(APIView):
         return Response(serializer.data)
 
 
-class SuperAdminExampleView(APIView):
+class SuperAdminExampleView(AnsibleBaseView):
     """
     Example API endpoint accessible only by superadmin users.
 
